@@ -1,17 +1,17 @@
 package routes
 
 // golang has an absolute path so dont use ./ or / ....
+// directly copy from github as a absoulte path
 import (
-	"fmt"
-	"log"
 	"github.com/gorilla/mux"
-	"github.com/noogler-eng/go-lang/mysql/pkg/controllers"
+	"github.com/noogler-eng/go-lang/tree/main/mysql/pkg/controllers"
 )
 
-
-func BookRouter() {
-    r := mux.NewRouter()
-    r.HandleFunc("/", CreateBooks);
-    r.HandleFunc("/products", ProductsHandler)
-    r.HandleFunc("/articles", ArticlesHandler)
+// always export things comes in caps
+var BookRouter = func(router *mux.Router) {
+	router.HandleFunc("/books", controllers.GetBooks).Methods("GET");
+	router.HandleFunc("/books/${id}", controllers.GetBooksById).Methods("GET");
+    router.HandleFunc("/books", controllers.CreateBooks).Methods("POST");
+    router.HandleFunc("/books/${id}", controllers.UpdateBook).Methods("PUT");
+    router.HandleFunc("/books/${id}", controllers.DeleteBook).Methods("DELETE");
 }

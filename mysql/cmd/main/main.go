@@ -10,6 +10,8 @@ import (
 func main(){
 	r := mux.NewRouter()
 	routes.BookRouter(r);
+	// func http.Handle(pattern string, handler http.Handler)
+	http.Handle("/", r);
 	if err := http.ListenAndServe(":8080", r); err != nil {
 		log.Fatal("error", err);
 	}

@@ -1,10 +1,20 @@
 package utils
 
+import (
+	"encoding/json"
+	"io"
+	"net/http"
+)
+
 type Msg struct {
 	Msg 	string `json:"msg"`
 }
 
-type Book struct {
-	Title 	string `json:"title"`
-	Author	string `json:"author"`
+func ParseBody(r *http.Request, x interface{}){
+	if body, err := io.ReadAll(r.Body); err == nil {
+		if err := json.Unmarshal([]byte(body), x); err != nil {
+			return;
+		}
+	}
 }
+
